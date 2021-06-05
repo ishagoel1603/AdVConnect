@@ -1,5 +1,4 @@
 # AdVConnect
-# AdVConnect
 <h1>Django based Advertisement creator</h1>
 <h2>How to deploy this project</h2>
 <p>To run locally, do the usual:
