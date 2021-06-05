@@ -1,0 +1,40 @@
+
+<!-- saved from url=(0141)https://www.pythonanywhere.com/user/ishagoel1603/files/home/ishagoel1603/django_projects/mysite/home/templates/registration/login_social.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head><body>{% extends "base_bootstrap.html" %}
+
+{% block content %}
+
+{% if form.errors %}
+  <p>Your username and password didn't match. Please try again.</p>
+{% endif %}
+
+{% if next %}
+  {% if user.is_authenticated %}
+    <p>Your account doesn't have access to this page. To proceed,
+    please login with an account that has access.</p>
+  {% else %}
+    <p>Please login to see this site.</p>
+  {% endif %}
+{% endif %}
+
+{% load crispy_forms_tags %}
+
+<form method="post" action="https://www.pythonanywhere.com/user/ishagoel1603/files/home/ishagoel1603/django_projects/mysite/home/templates/registration/%7B%%20url%20&#39;login&#39;%20%%7D">
+{% csrf_token %}
+{{ form|crispy }}
+<input type="submit" class="btn btn-primary" value="Login Locally">
+<input type="hidden" name="next" value="{{ next }}">
+</form>
+
+{% if settings.SOCIAL_AUTH_GITHUB_KEY %}
+<hr>
+<a class="btn btn-info" role="button" href="https://www.pythonanywhere.com/user/ishagoel1603/files/home/ishagoel1603/django_projects/mysite/home/templates/registration/%7B%%20url%20&#39;social:begin&#39;%20&#39;github&#39;%20%%7D?next={{%20next%20}}">
+    <i class="fa fa-github" aria-hidden="true"></i>
+    Login with GitHub</a>
+{% endif %}
+
+<!-- ROOT_URLCONF {{ settings.ROOT_URLCONF }} -->
+
+{% endblock %}
+
+</body></html>

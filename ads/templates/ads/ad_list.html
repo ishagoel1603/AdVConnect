@@ -1,0 +1,79 @@
+
+<!-- saved from url=(0126)https://www.pythonanywhere.com/user/ishagoel1603/files/home/ishagoel1603/django_projects/mysite/ads/templates/ads/ad_list.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head><body>{% extends "base_menu.html" %}
+{% block content %}
+<h1>Ads</h1>
+
+<div style="float:right">
+<!-- https://www.w3schools.com/howto/howto_css_search_button.asp -->
+<form>
+  <input type="text" placeholder="Search.." name="search" {%="" if="" search="" %}="" value="{{ search }}" endif="">
+  <button type="submit"><i class="fa fa-search"></i></button>
+<a href="https://www.pythonanywhere.com/user/ishagoel1603/files/home/ishagoel1603/django_projects/mysite/ads/templates/ads/%7B%%20url%20&#39;ads:all&#39;%20%%7D"><i class="fa fa-undo"></i></a>
+</form>
+</div>
+
+<p>
+{% if ad_list %}
+</p><ul>
+
+  {% for ad in ad_list %}
+    <li>
+        <a href="https://www.pythonanywhere.com/user/ishagoel1603/files/home/ishagoel1603/django_projects/mysite/ads/templates/ads/%7B%%20url%20&#39;ads:ad_detail&#39;%20%20ad.id%20%%7D">{{ ad.title }}</a>
+        {% if ad.owner == user %}
+        (<a href="https://www.pythonanywhere.com/user/ishagoel1603/files/home/ishagoel1603/django_projects/mysite/ads/templates/ads/%7B%%20url%20&#39;ads:ad_update&#39;%20ad.id%20%%7D">Edit</a> |
+        <a href="https://www.pythonanywhere.com/user/ishagoel1603/files/home/ishagoel1603/django_projects/mysite/ads/templates/ads/%7B%%20url%20&#39;ads:ad_delete&#39;%20ad.id%20%%7D">Delete</a>)
+        {% endif %}
+    </li>
+
+    {% if user.is_authenticated %}
+        <!-- Two hrefs with two stacked icons each - one showing and one hidden -->
+        <a href="https://www.pythonanywhere.com/user/ishagoel1603/files/home/ishagoel1603/django_projects/mysite/ads/templates/ads/ad_list.html#" onclick="favPost(&#39;{% url &#39;ads:ad_unfavorite&#39; ad.id %}&#39;, {{ ad.id }});return false;" {%="" if="" ad.id="" not="" in="" favorites="" %}="" style="display: none;" endif="" id="favorite_star_{{ad.id}}">
+        <span class="fa-stack" style="vertical-align: middle;">
+        <i class="fa fa-star fa-stack-1x" style="color: orange;"></i>
+        <i class="fa fa-star-o fa-stack-1x"></i>
+        </span>
+        </a>
+        <!-- the second href -->
+        <a href="https://www.pythonanywhere.com/user/ishagoel1603/files/home/ishagoel1603/django_projects/mysite/ads/templates/ads/ad_list.html#" onclick="favPost(&#39;{% url &#39;ads:ad_favorite&#39; ad.id %}&#39;, {{ ad.id }} );return false;" {%="" if="" ad.id="" in="" favorites="" %}="" style="display: none;" endif="" id="unfavorite_star_{{ad.id}}">
+        <span class="fa-stack" style="vertical-align: middle;">
+        <i class="fa fa-star fa-stack-1x" style="display: none; color: orange;"></i>
+        <i class="fa fa-star-o fa-stack-1x"></i>
+        </span>
+        </a>
+        {% endif %}
+
+
+  {% endfor %}
+
+
+</ul>
+{% else %}
+  <p>There are no ads in the database.</p>
+{% endif %}
+<p></p>
+<p>
+<a href="https://www.pythonanywhere.com/user/ishagoel1603/files/home/ishagoel1603/django_projects/mysite/ads/templates/ads/%7B%%20url%20&#39;ads:ad_create&#39;%20%%7D">Add an Ad</a> |
+{% if user.is_authenticated %}
+<a href="https://www.pythonanywhere.com/user/ishagoel1603/files/home/ishagoel1603/django_projects/mysite/ads/templates/ads/%7B%%20url%20&#39;logout&#39;%20%%7D?next={%%20url%20%27ads:all%27%20%}">Logout</a>
+{% else %}
+<a href="https://www.pythonanywhere.com/user/ishagoel1603/files/home/ishagoel1603/django_projects/mysite/ads/templates/ads/%7B%%20url%20&#39;login&#39;%20%%7D?next={%%20url%20%27ads:all%27%20%}">Login</a>
+{% endif %}
+</p>
+
+
+
+<script>
+function favPost(url, ad_id) {
+    console.log('Requesting JSON');
+    $.post(url, {},  function(rowz){
+        console.log(url, 'finished');
+        $("#unfavorite_star_"+ad_id).toggle();
+        $("#favorite_star_"+ad_id).toggle();
+    }).fail(function(xhr) {
+        alert('Url failed with '+xhr.status+' '+url);
+    });
+}
+</script>
+
+{% endblock %}</body></html>

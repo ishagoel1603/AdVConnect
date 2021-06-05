@@ -1,0 +1,79 @@
+
+<!-- saved from url=(0128)https://www.pythonanywhere.com/user/ishagoel1603/files/home/ishagoel1603/django_projects/mysite/ads/templates/ads/ad_detail.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head><body>{% extends "base_menu.html" %}
+{% load humanize %} <!-- https://docs.djangoproject.com/en/3.0/ref/contrib/humanize -->
+{% block head %}
+<style>
+.overlay{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  display: none;
+  background-color: rgba(0,0,0,0.5); /*dim the background*/
+}
+</style>
+{% endblock %}
+
+{% block content %}
+
+{% if pic.content_type %}
+<div id="overlay" class="overlay" style="text-align: center;" onclick="document.getElementById(&#39;overlay&#39;).style.display = &#39;none&#39;;">
+<img style="width:90%;margin-top: 50px; border:3px solid black;" src="./ad_detail_files/{% url &#39;ads_ad_picture&#39; ad.id %}">
+</div>
+{% endif %}
+
+<span style="float: right;">
+({{ ad.updated_at|naturaltime }})
+{% if ad.owner == user %}
+<a href="https://www.pythonanywhere.com/user/ishagoel1603/files/home/ishagoel1603/django_projects/mysite/ads/templates/ads/%7B%%20url%20&#39;ads:ad_update&#39;%20ad.id%20%%7D"><i class="fa fa-pencil"></i></a>
+<a href="https://www.pythonanywhere.com/user/ishagoel1603/files/home/ishagoel1603/django_projects/mysite/ads/templates/ads/%7B%%20url%20&#39;ads:ad_delete&#39;%20ad.id%20%%7D"><i class="fa fa-trash"></i></a>
+{% endif %}
+</span>
+<h1>{{ ad.title }}</h1>
+    {% if ad.content_type %}
+    <img style="float:right; max-width:50%;" src="./ad_detail_files/{% url &#39;ads_ad_picture&#39; ad.id %}" onclick="document.getElementById(&#39;overlay&#39;).style.display = &#39;block&#39;;">
+{% endif %}
+<br>
+<p>
+{{ ad.text }}
+</p>
+<br>
+<h3>Price:</h3>
+<pre><h4>
+{{ad.price}}
+</h4>
+</pre>
+<br>
+<p>
+    Contact: {{ad.contact}}
+</p>
+<p>
+<a href="https://www.pythonanywhere.com/user/ishagoel1603/files/home/ishagoel1603/django_projects/mysite/ads/templates/ads/%7B%%20url%20&#39;ads:all&#39;%20%%7D">All ads</a>
+</p>
+
+{% if user.is_authenticated %}
+<br clear="all">
+<p>
+{% load crispy_forms_tags %}
+</p><form method="post" action="https://www.pythonanywhere.com/user/ishagoel1603/files/home/ishagoel1603/django_projects/mysite/ads/templates/ads/%7B%%20url%20&#39;ads:ad_comment_create&#39;%20ad.id%20%%7D">
+    {% csrf_token %}
+    {{ comment_form|crispy }}
+<input type="submit" value="Submit">
+<input type="submit" value="All Ads" onclick="window.location.href=&#39;{% url &#39;ads:all&#39; %}&#39;;return false;">
+</form>
+<p></p>
+{% endif %}
+
+{% for comment in comments %}
+<p> {{ comment.text }}
+({{ comment.updated_at|naturaltime }})
+{% if user == comment.owner %}
+<a href="https://www.pythonanywhere.com/user/ishagoel1603/files/home/ishagoel1603/django_projects/mysite/ads/templates/ads/%7B%%20url%20&#39;ads:comment_delete&#39;%20comment.id%20%%7D"><i class="fa fa-trash"></i></a>
+{% endif %}
+</p>
+{% endfor %}
+
+{% endblock %}</body></html>

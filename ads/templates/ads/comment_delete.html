@@ -1,0 +1,16 @@
+
+<!-- saved from url=(0133)https://www.pythonanywhere.com/user/ishagoel1603/files/home/ishagoel1603/django_projects/mysite/ads/templates/ads/comment_delete.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head><body>{% extends "base_bootstrap.html" %}
+{% block content %}
+<h1>Delete Comment</h1>
+
+<p>Are you sure you want to delete</p>
+<p>{{ comment.text }}?</p>
+
+<form action="https://www.pythonanywhere.com/user/ishagoel1603/files/home/ishagoel1603/django_projects/mysite/ads/templates/ads/comment_delete.html" method="POST">
+  {% csrf_token %}
+  <input type="submit" class="btn btn-primary" value="Yes, delete.">
+  <a href="https://www.pythonanywhere.com/user/ishagoel1603/files/home/ishagoel1603/django_projects/mysite/ads/templates/ads/%7B%%20url%20&#39;ads:ad_detail&#39;%20comment.ad.id%20%%7D" class="btn btn-secondary">Cancel</a>
+</form>
+{% endblock %}
+</body></html>
