@@ -93,6 +93,6 @@
   Open http://ishagoel1603.pythonanywhere.com/
  <h2> To Login </h2>
  <p>You can login with github or facebook or locally. For local login</p>
-  <p>user- user
-  password-user1234</p>
-  <h3>UML and ER daigrams are in it</h3>  
+  <p>user- user</p>
+  <p>password-user1234</p>
+  <h3>UML and ER daigrams are in this repo</h3>  
